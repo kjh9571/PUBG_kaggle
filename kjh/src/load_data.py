@@ -1,4 +1,3 @@
-from asyncio import base_futures
 import pandas as pd
 
 def load_data(x):

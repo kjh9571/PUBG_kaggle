@@ -7,8 +7,4 @@ def feature_selection(df):
         'matchDuration','maxPlace','numGroups','rankPoints','teamKills',\
             'winPoints']).copy()
     return new_df
-
     
-            
-        
-
