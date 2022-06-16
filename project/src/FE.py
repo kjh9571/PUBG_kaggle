@@ -9,7 +9,7 @@ def matchType_classify(df):
             return 'solo'
         elif 'duo' in x:            
             return 'duo'
-        else: 
+        else:
             return 'squad'
     
     new_df = df
@@ -30,15 +30,12 @@ def average_speed(df):
     df['average_speed'] = (df.rideDistance + df.swimDistance + df.walkDistance)/df.matchDuration
     return df['average_speed']
 
-def headshotKillsPerc(df):
-    if df.kills == 0:
-        return 0
-    else:
-        return df.headshotKills / df.kills
-
-# def roadKillsPerc(df):
+# def headshotKillsPerc(df):
 #     if df.kills == 0:
 #         return 0
 #     else:
-#         return df.roadKills / df.kills
-    
+#         return df.headshotKills / df.kills
+
+def total_Distance(df):
+    df['totalDistance'] = df.rideDistance + df.swimDistance + df.walkDistance
+    return df['totalDistance']
