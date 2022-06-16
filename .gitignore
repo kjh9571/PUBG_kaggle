@@ -1,3 +1,4 @@
 # Add ignore file
 *.csv
 .DS_Store
+*.pkl
