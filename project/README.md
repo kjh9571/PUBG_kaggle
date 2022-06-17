@@ -1,1 +1,1 @@
-# PUBG_mini_pjt
+# PUBG_kaggle
