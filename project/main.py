@@ -9,6 +9,7 @@ from sklearn.linear_model import Ridge              # 3. Ridge
 from xgboost.sklearn import XGBRegressor            # 4. XGBoost
 from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
+from src.FE import team_player
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
@@ -37,6 +38,8 @@ X_matchType = train_FE.matchType
 y = train_FE.winPlacePerc
 
 # Create new feature
+X['team_player'] = team_player(df_train)
+X['player']= player(df_train)
 
 # Normalization(scaling)
 
