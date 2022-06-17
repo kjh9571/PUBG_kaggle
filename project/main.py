@@ -15,8 +15,8 @@ from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
 from src.model import training
  
 #%%
-# df = load_data('train')
-# df.to_pickle('data/raw/train_V2.pkl')
+df = load_data('train')
+df.to_pickle('data/raw/train_V2.pkl')
 df_train = pd.read_pickle('data/raw/train_V2.pkl')
 
 #%%
