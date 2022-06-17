@@ -9,6 +9,7 @@ from sklearn.linear_model import Ridge              # 3. Ridge
 from xgboost.sklearn import XGBRegressor            # 4. XGBoost
 from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
+from src.FE import scaling
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
@@ -28,7 +29,7 @@ train_prep = reduce_mem_usage(df_train)
 train_prep = rm_MissingValue(train_prep)
 
 # feature selection
-train_prep = feature_drop(train_prep, ['Id','matchId','groupId'])
+train_prep = feature_drop(train_prep, ['Id','matchId','groupId','killPlace'])
 
 ## 2. Feature engineering
 train_FE = train_prep
@@ -39,6 +40,7 @@ y = train_FE.winPlacePerc
 # Create new feature
 
 # Normalization(scaling)
+X = scaling(X, MinMaxScaler(), ['damageDealt','longestKill','walkDistance','swimDistance','rideDistance'])
 
 # Categorical feature encoding
 
