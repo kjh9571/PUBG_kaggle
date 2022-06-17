@@ -5,5 +5,5 @@ def training(model, X, y):
     reg.fit(X, y)
     pred_train = reg.predict(X)
     mae_train = mean_absolute_error(y, pred_train)
-    return [mae_train, reg]
+    return mae_train
     

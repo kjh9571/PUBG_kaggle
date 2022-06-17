@@ -40,8 +40,7 @@ def rm_MissingValue(df):
     new_df = df.dropna(axis=0).copy()
     return new_df
 
-def feature_selection(df):
-    new_df = df.drop(columns=['Id','groupId','matchId','killPlace','killPoints',\
-        'matchDuration','numGroups','rankPoints','teamKills', 'winPoints']).copy()
+def feature_drop(df, col_list):
+    new_df = df.drop(columns = col_list).copy()
     return new_df
     
