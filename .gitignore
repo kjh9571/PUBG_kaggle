@@ -3,3 +3,5 @@
 .DS_Store
 *.pkl
 *.pyc
+kjh/
+__pycache__/
