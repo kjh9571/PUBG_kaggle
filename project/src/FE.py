@@ -10,7 +10,6 @@ def player(df):
     df['player']=df.matchId.map(df.matchId.value_counts())
     return df['player']
 
-
 # 총 이동 거리
 def total_distance(df):
     df['total_distance']=df['rideDistance']+df['swimDistance']+df['walkDistance']
@@ -28,3 +27,9 @@ def headshotKillsPerc(row):
         return 0
     else:
         return row['headshotKills'] / row['kills']
+
+def columns_place(list, X, df):
+    for i in list:
+        X[i + 'Place'] = df.groupby('matchId')[i].rank(method='max', ascending = False)
+    
+    return X

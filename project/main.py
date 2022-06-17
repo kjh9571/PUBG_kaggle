@@ -10,15 +10,15 @@ from xgboost.sklearn import XGBRegressor            # 4. XGBoost
 from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
-from src.FE import team_player, headshotKillsPerc, scaling
+from src.FE import columns_place, team_player, headshotKillsPerc, scaling, player, total_distance
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
 from src.model import training
  
 #%%
-df = load_data('train')
-df.to_pickle('data/raw/train_V2.pkl')
+#df = load_data('train')
+#df.to_pickle('data/raw/train_V2.pkl')
 df_train = pd.read_pickle('data/raw/train_V2.pkl')
 
 #%%
@@ -42,6 +42,8 @@ y = train_FE.winPlacePerc
 X['team_player'] = team_player(df_train)
 X['player']= player(df_train)
 X['headshotKillsPerc'] = df_train.apply(lambda x :headshotKillsPerc(x), axis=1)
+X['totalDistance'] = total_distance(df_train)
+X = columns_place(['assists','damageDealt','DBNOs','headshotKills','longestKill'], X, df_train)
 
 # Normalization(scaling)
 X = scaling(X, MinMaxScaler(), ['damageDealt','longestKill','walkDistance','swimDistance','rideDistance'])
