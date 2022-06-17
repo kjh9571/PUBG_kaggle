@@ -1,9 +1,6 @@
 # Feature Engineering
 
 # 팀 플레이어수
-from locale import D_FMT
-
-
 def team_player(df):
     df['team_player']=df.groupId.map(df.groupId.value_counts())
     return df['team_player']
@@ -18,3 +15,16 @@ def player(df):
 def total_distance(df):
     df['total_distance']=df['rideDistance']+df['swimDistance']+df['walkDistance']
     return df['total_distance']
+  
+def scaling(df, scaler, col_list):
+    scaler = scaler
+    temp = scaler.fit_transform(df.loc[:, col_list])
+    for i in range(len(col_list)):
+        df[col_list[i]] = temp[:,i]
+    return df
+
+def headshotKillsPerc(row):
+    if row['kills'] == 0:
+        return 0
+    else:
+        return row['headshotKills'] / row['kills']
