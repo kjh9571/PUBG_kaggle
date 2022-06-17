@@ -1,1 +1,0 @@
-# PUBG_mini_pjt
