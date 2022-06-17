@@ -10,7 +10,7 @@ from xgboost.sklearn import XGBRegressor            # 4. XGBoost
 from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
-from src.FE import columns_place, team_player, headshotKillsPerc, scaling, player, total_distance
+from src.FE import columns_place, matchType_classify, matchType_encoding, team_player, headshotKillsPerc, scaling, player, total_distance
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
@@ -30,7 +30,8 @@ train_prep = reduce_mem_usage(df_train)
 train_prep = rm_MissingValue(train_prep)
 
 # feature selection
-train_prep = feature_drop(train_prep, ['Id','matchId','groupId','killPlace'])
+train_prep = feature_drop(train_prep, ['Id','matchId','groupId','killPlace',\
+                                       'killPoints','numGroups','rankPoints'])
 
 ## 2. Feature engineering
 train_FE = train_prep
@@ -46,9 +47,13 @@ X['totalDistance'] = total_distance(df_train)
 X = columns_place(['assists','damageDealt','DBNOs','headshotKills','longestKill'], X, df_train)
 
 # Normalization(scaling)
-X = scaling(X, MinMaxScaler(), ['damageDealt','longestKill','walkDistance','swimDistance','rideDistance'])
+X_scaled = scaling(X, MinMaxScaler(), ['damageDealt','longestKill','walkDistance',\
+                                       'swimDistance','rideDistance'])
 
 # Categorical feature encoding
+X = pd.concat([X_scaled, X_matchType], axis=1)
+X_OHE = matchType_classify(X)
+X = matchType_encoding(X_OHE)
 
 # pd.set_option('display.max_columns', None)
 # print(X_FE)

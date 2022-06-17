@@ -1,4 +1,5 @@
 # Feature Engineering
+import pandas as pd
 
 # 팀 플레이어수
 def team_player(df):
@@ -33,3 +34,24 @@ def columns_place(list, X, df):
         X[i + 'Place'] = df.groupby('matchId')[i].rank(method='max', ascending = False)
     
     return X
+
+# matchType 분류
+def matchType_classify(df):
+    def classify(x):
+        if 'flare' in x or 'crash' in x or 'normal' in x:
+            return 'event'
+        elif 'solo' in x:
+            return 'solo'
+        elif 'duo' in x:            
+            return 'duo'
+        else:
+            return 'squad'
+    
+    new_df = df
+    new_df['matchType'] = df['matchType'].apply(classify)
+    return new_df
+
+# matchType encoding
+def matchType_encoding(df):
+    df_OHE = pd.get_dummies(df, columns=['matchType'])
+    return df_OHE
