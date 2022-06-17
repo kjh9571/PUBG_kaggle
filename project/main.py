@@ -9,15 +9,16 @@ from sklearn.linear_model import Ridge              # 3. Ridge
 from xgboost.sklearn import XGBRegressor            # 4. XGBoost
 from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
-from src.FE import headshotKillsPerc, scaling
+
+from src.FE import team_player, headshotKillsPerc, scaling
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
 from src.model import training
  
 #%%
-# df = load_data('train')
-# df.to_pickle('data/raw/train_V2.pkl')
+df = load_data('train')
+df.to_pickle('data/raw/train_V2.pkl')
 df_train = pd.read_pickle('data/raw/train_V2.pkl')
 
 #%%
@@ -38,6 +39,8 @@ X_matchType = train_FE.matchType
 y = train_FE.winPlacePerc
 
 # Create new feature
+X['team_player'] = team_player(df_train)
+X['player']= player(df_train)
 X['headshotKillsPerc'] = df_train.apply(lambda x :headshotKillsPerc(x), axis=1)
 
 # Normalization(scaling)
