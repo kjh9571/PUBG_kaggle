@@ -7,7 +7,7 @@ def team_player(df):
 
 # 총 플레이어 수
 def player(df):
-    df['player']=D_FMT.matchId.map(df.matchId.value_counts())
+    df['player']=df.matchId.map(df.matchId.value_counts())
     return df['player']
 
 
