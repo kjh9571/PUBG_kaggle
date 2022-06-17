@@ -6,3 +6,8 @@ def scaling(df, scaler, col_list):
         df[col_list[i]] = temp[:,i]
     return df
 
+def headshotKillsPerc(row):
+    if row['kills'] == 0:
+        return 0
+    else:
+        return row['headshotKills'] / row['kills']
