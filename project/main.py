@@ -23,7 +23,7 @@ from src.model import training
 df_train = pd.read_pickle('data/raw/train_V2.pkl')
 
 #%%
-## 1. Preprocessing
+## 1. Preprocessing.
 # 데이터프레임 메모리 사용량 줄이기
 train_prep = reduce_mem_usage(df_train)
 
