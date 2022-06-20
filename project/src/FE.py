@@ -24,6 +24,7 @@ def scaling(df, scaler, col_list):
         df[col_list[i]] = temp[:,i]
     return df
 
+# 컬럼 place화(등수 나열)
 def columns_place(list, X, df):
     for i in list:
         X[i + 'Place'] = df.groupby('matchId')[i].rank(method='max', ascending = False)
@@ -50,6 +51,14 @@ def matchType_classify(df):
 def matchType_encoding(df):
     df_OHE = pd.get_dummies(df, columns=['matchType'])
     return df_OHE
+
+
+# 그룹아이디에 따라 그룹화 및 컬럼 평균값 대입.
+def columns_grouped_mean(list, X, df):   
+    for i in list :
+        X['group'+i] = df.groupby('groupId')[i].transform('mean')
+        
+    return X
 
 def average_weaponsAcquired(df):
     df['average_weaponsAcquired'] = df.weaponsAcquired / (df.matchDuration / 60)

@@ -10,7 +10,7 @@ from xgboost.sklearn import XGBRegressor            # 4. XGBoost
 from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
-from src.FE import columns_place, matchType_classify, matchType_encoding, team_player,\
+from src.FE import columns_place, columns_grouped_mean, matchType_classify, matchType_encoding, team_player,\
     scaling, player, total_distance, average_weaponsAcquired, average_damage
 
 from src.load_data import load_data
@@ -23,7 +23,7 @@ from src.model import training
 df_train = pd.read_pickle('data/raw/train_V2.pkl')
 
 #%%
-## 1. Preprocessing
+## 1. Preprocessing.
 # 데이터프레임 메모리 사용량 줄이기
 train_prep = reduce_mem_usage(df_train)
 
@@ -54,6 +54,7 @@ X['knocked_per_distance'] = df_train.DBNOs / X.totalDistance
 X['damage_per_distance'] = df_train.damageDealt / X.totalDistance
 X['killStreaks_rate'] = df_train.killStreaks / df_train.kills
 X = columns_place(['assists','damageDealt','DBNOs','headshotKills','longestKill'], X, df_train)
+X = columns_grouped_mean(['kills', 'assists', 'killStreaks', 'walkDistance'], X, df_train)
 
 X = X.replace((np.inf, -np.inf, np.nan), 0)
 
