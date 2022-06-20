@@ -81,7 +81,7 @@ def healboost_per_kill(df):
 
 #게임당 거리
 def dist_per_game(df):
-    df['dist_per_game'] = df['totalDistance']/df['matchDuration']
+    df['dist_per_game'] = df['total_distance']/df['matchDuration']
     return ['dist_per_game']
     
 #데미지 비율
@@ -108,10 +108,6 @@ def support(df):
     df['support'] = df['assists'] + df['revives']
     return df
 
-# 그룹 평균킬
-def squad_avg_kill(df):
-    df['avg_kill'] = df['squadKills']/df['teamplayer']
-    return df
 
 
 # 솔플 평균킬

@@ -11,7 +11,7 @@ from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
 from src.FE import columns_place, columns_grouped_mean, matchType_classify, matchType_encoding, team_player,\
-    scaling, player, total_distance, average_weaponsAcquired, average_damage ,healboost_per_kill,dist_per_game,damage_ratio,ave_place,walk_kills,support,squad_avg_kill,solo_avg_kill
+    scaling, player, total_distance, average_weaponsAcquired, average_damage ,healboost_per_kill,dist_per_game,damage_ratio,ave_place,walk_kills,support,solo_avg_kill
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
@@ -57,17 +57,13 @@ X = columns_place(['assists','damageDealt','DBNOs','headshotKills','longestKill'
 X = columns_grouped_mean(['kills', 'assists', 'killStreaks', 'walkDistance'], X, df_train)
 
 
-# 총 킬 for 그룹 기준으로한 평균킬 # matchId','groupId'를 기준 그룹'kills'
-totalKills = X.groupby(['matchId','groupId']).agg({'kills': lambda x: x.sum()})
-totalKills.rename(columns={"kills": "squadKills"}, inplace=True)
-train = X.join(other=totalKills, on=['matchId', 'groupId'])
+
 X['healboost_per_kill']= healboost_per_kill(df_train)
 X['dist_per_game']= dist_per_game(df_train)
 X['damage_ratio']= damage_ratio(df_train)
 X['ave_place']=ave_place(df_train)
 X['walk_kills']= walk_kills(df_train)
 X['support']= support(df_train)
-X['squad_avg_kill']=squad_avg_kill(df_train)
 X['solo_avg_kill']=solo_avg_kill(df_train)
 
 
