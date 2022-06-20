@@ -44,6 +44,7 @@ y = train_FE.winPlacePerc
 # Create new feature
 X['average_weaponsAcquired'] = average_weaponsAcquired(df_train)
 X['average_damage'] = average_damage(df_train)
+
 X['totalDistance'] = total_distance(df_train)
 X['team_player'] = team_player(df_train)
 X['player']= player(df_train)

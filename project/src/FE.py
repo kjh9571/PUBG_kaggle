@@ -58,3 +58,4 @@ def average_weaponsAcquired(df):
 def average_damage(df):
     df['average_damage'] = df.damageDealt / (df.matchDuration / 60)
     return df['average_damage']
+
