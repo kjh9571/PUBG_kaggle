@@ -50,3 +50,16 @@ def matchType_classify(df):
 def matchType_encoding(df):
     df_OHE = pd.get_dummies(df, columns=['matchType'])
     return df_OHE
+
+def average_weaponsAcquired(df):
+    df['average_weaponsAcquired'] = df.weaponsAcquired / (df.matchDuration / 60)
+    return df['average_weaponsAcquired']
+
+def average_damage(df):
+    df['average_damage'] = df.damageDealt / (df.matchDuration / 60)
+    return df['average_damage']
+
+def headshotkillsPerc(df):
+    df['headshotkillsPerc'] = df['headshotKills'] / df['kills']
+    df['headshotkillsPerc'] = df['headshotkillsPerc'].fillna(0)
+    return df['headshotkillsPerc']
