@@ -1,4 +1,5 @@
 # Feature Engineering
+#%%
 import pandas as pd
 
 # 팀 플레이어수
@@ -22,12 +23,6 @@ def scaling(df, scaler, col_list):
     for i in range(len(col_list)):
         df[col_list[i]] = temp[:,i]
     return df
-
-def headshotKillsPerc(row):
-    if row['kills'] == 0:
-        return 0
-    else:
-        return row['headshotKills'] / row['kills']
 
 def columns_place(list, X, df):
     for i in list:
