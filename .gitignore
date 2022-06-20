@@ -2,6 +2,8 @@
 *.csv
 .DS_Store
 *.pkl
-*.pyc
 kjh/
+
+# Byte-compiled / optimized / DLL filese
 __pycache__/
+*.py[cod]
