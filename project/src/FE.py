@@ -1,6 +1,7 @@
 # Feature Engineering
 #%%
 import pandas as pd
+import numpy as np
 
 # 팀 플레이어수
 def team_player(df):
@@ -67,4 +68,56 @@ def average_weaponsAcquired(df):
 def average_damage(df):
     df['average_damage'] = df.damageDealt / (df.matchDuration / 60)
     return df['average_damage']
+
+
+
+
+# 지원
+
+# 힐+부스트 당 킬 관여
+def healboost_per_kill(df):
+    df['healboost_per_kill'] =(df['heals']+df['boosts'])/df['assists']+df['kills']
+    return df['healboost_per_kill']
+
+#게임당 거리
+def dist_per_game(df):
+    df['dist_per_game'] = df['totalDistance']/df['matchDuration']
+    return ['dist_per_game']
+    
+#데미지 비율
+def damage_ratio(df):
+    df['damage_ratio'] = df['damageDealt']/df['assists']+df['kills']
+    return df['damage_ratio']
+
+# 평균등수
+def ave_place(df):
+    df['ave_maxplace'] = df['killPlace'] / df['maxPlace']
+    df['ave_maxplace'].fillna(0, inplace=True)
+    df['ave_maxplace'].replace(np.inf, 0, inplace=True)
+    return df
+
+#킬당 걸음
+def walk_kills(df):
+    df['walk_kills'] = df['walkDistance'] / df['kills']
+    df['walk_kills'].fillna(0, inplace=True)
+    df['walk_kills'].replace(np.inf, 0, inplace=True)
+    return df
+    
+# 총 도움관여 = 어시 + 아군부활 횟수
+def support(df):
+    df['support'] = df['assists'] + df['revives']
+    return df
+
+# 그룹 평균킬
+def squad_avg_kill(df):
+    df['avg_kill'] = df['squadKills']/df['teamplayer']
+    return df
+
+
+# 솔플 평균킬
+def solo_avg_kill(df):
+    df['solo_avg_kill'] = df['killPlace']/df['player']
+    return df
+
+
 
