@@ -11,7 +11,7 @@ from lightgbm.sklearn import LGBMRegressor          # 5. LightGBM
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
 from src.FE import columns_place, matchType_classify, matchType_encoding, team_player,\
-    scaling, player, total_distance
+    scaling, player, total_distance, average_weaponsAcquired, average_damage
 
 from src.load_data import load_data
 from src.preprocess import feature_drop, reduce_mem_usage, rm_MissingValue
@@ -42,6 +42,8 @@ X_matchType = train_FE.matchType
 y = train_FE.winPlacePerc
 
 # Create new feature
+X['average_weaponsAcquired'] = average_weaponsAcquired(df_train)
+X['average_damage'] = average_damage(df_train)
 X['totalDistance'] = total_distance(df_train)
 X['team_player'] = team_player(df_train)
 X['player']= player(df_train)
