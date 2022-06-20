@@ -52,10 +52,19 @@ def matchType_encoding(df):
     df_OHE = pd.get_dummies(df, columns=['matchType'])
     return df_OHE
 
+
 # 그룹아이디에 따라 그룹화 및 컬럼 평균값 대입.
 def columns_grouped_mean(list, X, df):   
     for i in list :
         X['group'+i] = df.groupby('groupId')[i].transform('mean')
         
     return X
-        
+
+def average_weaponsAcquired(df):
+    df['average_weaponsAcquired'] = df.weaponsAcquired / (df.matchDuration / 60)
+    return df['average_weaponsAcquired']
+
+def average_damage(df):
+    df['average_damage'] = df.damageDealt / (df.matchDuration / 60)
+    return df['average_damage']
+
