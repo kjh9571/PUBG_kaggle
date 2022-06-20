@@ -51,16 +51,10 @@ def matchType_encoding(df):
     df_OHE = pd.get_dummies(df, columns=['matchType'])
     return df_OHE
 
-# 컬럼 Place화 시키기(컬림 기준 매치 내 등수 매기기)
-def columns_placed(x, df):
-    new_df = df
-    for i in x :
-        new_df[i+'Place']=df.groupby('matchId')[i].rank(method='max', ascending= False)
-    return new_df
-
 # 그룹아이디에 따라 그룹화 및 컬럼 평균값 대입
 def columns_grouped_mean(x, df):
     new_df = df
     for i in x :
-        new_df['group'+i] = df.groupby('groupId')[i].mean
+        new_df['group'+i] = df.groupby('groupId')[i].transform('mean')
     return new_df
+        
